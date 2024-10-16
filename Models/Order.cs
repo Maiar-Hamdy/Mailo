@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Palmart.Data.Enums;
+using Mailo.Data.Enums;
 
-namespace Palmart.Models
+namespace Mailo.Models
 {
     public class Order
 	{

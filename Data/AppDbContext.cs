@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
 using Microsoft.EntityFrameworkCore;
-using Palmart.Data.Enums;
-using Palmart.Models;
+using Mailo.Data.Enums;
+using Mailo.Models;
 
-namespace Palmart.Data
+namespace Mailo.Data
 {
 	public class AppDbContext : DbContext
 	{
@@ -17,18 +17,19 @@ namespace Palmart.Data
 		{
 			base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<Productss>().ToTable("Product");
             modelBuilder.Entity<Order>().ToTable("Order");
 			modelBuilder.Entity<OrderProduct>().ToTable("OrderProduct");
 			modelBuilder.Entity<Review>().ToTable("Review");
 			modelBuilder.Entity<Payment>().ToTable("Payment");
 			modelBuilder.Entity<Wishlist>().ToTable("Wishlist");
-			//modelBuilder.Entity<User>().ToTable("User");
-			//modelBuilder.Entity<User>().ToTable("User");
+            //modelBuilder.Entity<User>().ToTable("User");
+            //modelBuilder.Entity<User>().ToTable("User");
 
 
-		
-			modelBuilder.Entity<OrderProduct>().HasKey(op => new { op.OrderID, op.ProductID });
+            modelBuilder.Entity<Productss>()
+          .HasKey( p => new { p.ID });
+            modelBuilder.Entity<OrderProduct>().HasKey(op => new { op.OrderID, op.ProductID });
 			modelBuilder.Entity<OrderProduct>()
 		   .HasOne(op => op.order)
 		   .WithMany(o => o.OrderProducts)
@@ -70,14 +71,17 @@ namespace Palmart.Data
             modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Productss>()
             .HasIndex(u => u.Name)
+            .IsUnique();
+            modelBuilder.Entity<Productss>()
+            .HasIndex(op => new { op.ID, op.Colors,op.Size })
             .IsUnique();
             modelBuilder.Entity<User>()
             .HasIndex(u => u.Username)
             .IsUnique();
-            modelBuilder.Entity<Product>().Property(x => x.TotalPrice).HasComputedColumnSql("[Price]-([Discount]/100)*[Price]");
-            modelBuilder.Entity<User>().Property(x => x.FullName).HasComputedColumnSql("[FirstName]" + ' ' + "[LastName]");
+            modelBuilder.Entity<Productss>().Property(x => x.TotalPrice).HasComputedColumnSql("[Price]-([Discount]/100)*[Price]");
+            modelBuilder.Entity<User>().Property(x => x.FullName).HasComputedColumnSql("[FName]+' '+[LName]");
 
             #region User Data
             modelBuilder.Entity<User>()
@@ -93,7 +97,7 @@ namespace Palmart.Data
 		}
 
 		public DbSet<User> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Productss> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }

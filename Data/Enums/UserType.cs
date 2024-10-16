@@ -1,4 +1,4 @@
-﻿namespace Palmart.Data.Enums
+﻿namespace Mailo.Data.Enums
 {
     public enum UserType
     {

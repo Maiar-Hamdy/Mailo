@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Palmart.Data;
+using Mailo.Data;
+using Mailo.IRepo;
+using Mailo.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("ConStr")));
-
+builder.Services.AddScoped(typeof(IBasicRepo<>), typeof(BasicRepo<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

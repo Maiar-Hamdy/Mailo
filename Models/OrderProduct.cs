@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Palmart.Models
+namespace Mailo.Models
 {
 	public class OrderProduct
 	{
@@ -17,8 +17,8 @@ namespace Palmart.Models
 
 		[ForeignKey("product")]
 		public int ProductID { get; set; }
-		public Product product { get; set; }
-		
+		public Productss product { get; set; }
+
 
 	}
 }

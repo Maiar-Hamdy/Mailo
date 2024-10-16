@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Palmart.Models;
+using Mailo.Models;
 
-namespace Palmart.Models
+namespace Mailo.Models
 {
     public class Review
     {
@@ -17,7 +17,7 @@ namespace Palmart.Models
         public User user { get; set; }
         [ForeignKey("product")]
         public int ProductID { get; set; }
-        public Product product { get; set; }
+        public Productss product { get; set; }
 		[Range(1, 5)]
 		public float Rating { get; set; }
 		[MaxLength(50)]

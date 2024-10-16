@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Palmart.Data.Enums;
+using Mailo.Data.Enums;
 
-namespace Palmart.Models
+namespace Mailo.Models
 {
 	public class Payment
 	{

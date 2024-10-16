@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Palmart.Models
+namespace Mailo.Models
 {
 	public class Wishlist
 	{
@@ -9,7 +9,7 @@ namespace Palmart.Models
 		public User user { get; set; }
 		[ForeignKey("product")]
 		public int ProductID { get; set; }
-		public Product product { get; set; }
+		public Productss product { get; set; }
 		public DateTime AdditionDate { get; set; }
 	}
 }

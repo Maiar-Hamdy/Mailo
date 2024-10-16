@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mailo.Migrations
 {
     /// <inheritdoc />
-    public partial class all : Migration
+    public partial class edits : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,15 +36,18 @@ namespace Mailo.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Size = table.Column<int>(type: "int", nullable: false),
+                    Colors = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    AdditionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionDate = table.Column<DateTime>(type: "datetime2", maxLength: 50, nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, computedColumnSql: "[Price]-([Discount]/100)*[Price]"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +62,7 @@ namespace Mailo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     LName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false, computedColumnSql: "[FirstName] [LastName]"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false, computedColumnSql: "[FName]+' '+[LName]"),
                     Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -208,7 +211,7 @@ namespace Mailo.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "ID", "Address", "Email", "FName", "Gender", "LName", "Password", "PhoneNumber", "RegistrationDate", "UserType", "Username" },
-                values: new object[] { 1, "Al-Rawda Street, Off the Nile Courniche, Beni Suef", "Yara.Emad4869@gmail.com", "Yara", 1, "Emad Eldien", "YaraEmad4869", "+201127769084", new DateTime(2024, 10, 14, 14, 0, 40, 644, DateTimeKind.Local).AddTicks(6873), 0, "Yara_Emad4869" });
+                values: new object[] { 1, "Al-Rawda Street, Off the Nile Courniche, Beni Suef", "Yara.Emad4869@gmail.com", "Yara", 1, "Emad Eldien", "YaraEmad4869", "+201127769084", new DateTime(2024, 10, 16, 14, 26, 15, 346, DateTimeKind.Local).AddTicks(8744), 0, "Yara_Emad4869" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_EmpID",
@@ -229,6 +232,12 @@ namespace Mailo.Migrations
                 name: "IX_Payment_UserID",
                 table: "Payment",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_ID_Colors_Size",
+                table: "Product",
+                columns: new[] { "ID", "Colors", "Size" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_Name",
